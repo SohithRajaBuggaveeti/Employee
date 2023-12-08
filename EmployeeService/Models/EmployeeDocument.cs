@@ -12,7 +12,7 @@ namespace EmployeeService.Models
         [JsonProperty("employeeId")]
         public string EmployeeId { get; set; }
 
-        [JsonProperty("employeename")]
+        [JsonProperty("employeeName")]
         public string EmployeeName { get; set; }
 
         [JsonProperty("email")]

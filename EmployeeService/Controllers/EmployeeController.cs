@@ -14,8 +14,8 @@ namespace EmployeeService.Controllers
             this._employeeRepository = employeeRepository;
 
         }
-        [HttpGet("employeeId/{employeeId:int}")]
-        public async Task<ActionResult<EmployeeDocument>> GetByEmployeeId(int employeeId)
+        [HttpGet("employeeId/{employeeId}")]
+        public async Task<ActionResult<EmployeeDocument>> GetByEmployeeId(string employeeId)
         {
             var employee = await _employeeRepository.GetByEmployeeId(employeeId);
             return employee != null ?Ok(employee):BadRequest("EmployeeId is not present");
@@ -54,22 +54,35 @@ namespace EmployeeService.Controllers
         [HttpPost]
         public async Task<ActionResult<EmployeeDocument>> AddNewEmployee(EmployeeDocument employeeDocument)
         {
+            employeeDocument.EmployeeId = Guid.NewGuid().ToString();
             var createEmployee = await _employeeRepository.CreateEmployeeAsync(employeeDocument);
 
-            return
+            return createEmployee != null ? Ok(createEmployee) : BadRequest("Cannot create a new employee");
         }
-        [HttpPut("{id}")]
-        public void Put(int id, EmployeeDocument employeeDocument)
+        [HttpPut("{employeeId}")]
+        public async Task<ActionResult<EmployeeDocument>> UpdateEmployee(string employeeId, EmployeeDocument employeeDocument)
         {
-            var existing
-
-
+            var existingEmployee = await _employeeRepository.GetByEmployeeId(employeeId);
+            if(existingEmployee==null)
+            {
+                return BadRequest("Employee not found");
+            }
+            var updateEmployee = await _employeeRepository.updateEmployee(employeeId,employeeDocument);
+            return Ok(updateEmployee);
         }
-
-
-        [HttpDelete("{id}")]
-        public void Delete(int id)
+        [HttpDelete("{employeeId}")]
+        public async Task<ActionResult> Delete(string employeeId)
         {
+            try
+            {
+                await _employeeRepository.deleteEmployee(employeeId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest($"Could not delete an employee");
+            }
+
+            return Ok("Employee deleted sucessfully");
 
         }
         [HttpGet("test/{randomstring}")]
