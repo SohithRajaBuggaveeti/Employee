@@ -18,7 +18,7 @@ namespace EmployeeService.Data
         public EmployeeRepository(CosmosClient cosmosClnt,IConfiguration config) {
         this.cosmosClient = cosmosClnt;
             this.configuration = config;
-            var databaseName =cosmosClient.ClientOptions.ApplicationName;
+            var databaseName =configuration["CosmosDbSettings:DatabaseName"];
             var employeeContainerName = "Employees";
             _employeeContainer = cosmosClient.GetContainer(databaseName, employeeContainerName);
 
