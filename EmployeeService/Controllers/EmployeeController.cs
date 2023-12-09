@@ -6,7 +6,7 @@ namespace EmployeeService.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class EmployeeController : ControllerBase
+    public class EmployeeController : ControllerBase,IEmployeeController
     {
         private readonly IEmployeeRepository _employeeRepository;
         public EmployeeController(IEmployeeRepository employeeRepository)

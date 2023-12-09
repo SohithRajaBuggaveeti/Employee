@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj": {}
+    "C:\\Users\\Sohith Raja\\Desktop\\Microsoft\\Employee\\EmployeeService\\EmployeeService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj": {
+    "C:\\Users\\Sohith Raja\\Desktop\\Microsoft\\Employee\\EmployeeService\\EmployeeService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj",
+        "projectUniqueName": "C:\\Users\\Sohith Raja\\Desktop\\Microsoft\\Employee\\EmployeeService\\EmployeeService.csproj",
         "projectName": "EmployeeService",
-        "projectPath": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj",
-        "packagesPath": "C:\\Users\\sohit\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\obj\\",
+        "projectPath": "C:\\Users\\Sohith Raja\\Desktop\\Microsoft\\Employee\\EmployeeService\\EmployeeService.csproj",
+        "packagesPath": "C:\\Users\\Sohith Raja\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Sohith Raja\\Desktop\\Microsoft\\Employee\\EmployeeService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\sohit\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\Sohith Raja\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
