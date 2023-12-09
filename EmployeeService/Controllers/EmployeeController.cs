@@ -30,7 +30,7 @@ namespace EmployeeService.Controllers
         public async Task<ActionResult<EmployeeDocument>> GetByEmployeeDesignation(string designation)
         {
             var employee = await _employeeRepository.GetByEmployeeDesignation(designation);
-            return employee != null ? Ok(employee) : BadRequest("Cannot find any employees with the given designation");
+            return employee.Count != 0 ? Ok(employee) : BadRequest("Cannot find any employees with the given designation");
         }
         [HttpGet("email/{email}")]
         public async Task<ActionResult<EmployeeDocument>> GetByEmail(string email)
@@ -39,7 +39,7 @@ namespace EmployeeService.Controllers
             return employee != null ? Ok(employee) : BadRequest("Employee not found");
         }
         [HttpGet("department/{department}")]
-        public async Task<ActionResult<EmployeeDocument>> GetByDepartment(string department)
+        public async Task<ActionResult<List<EmployeeDocument>>> GetByDepartment(string department)
         {
             var employee = await _employeeRepository.GetByDepartment(department);
             return employee != null ? Ok(employee) : BadRequest("Cannot find any employees in the Department");
@@ -51,15 +51,21 @@ namespace EmployeeService.Controllers
             var employee = await _employeeRepository.GetByEmployeePhoneNumer(phoneNumber);
             return employee != null ? Ok(employee) : BadRequest("Employee not found");
         }
-        [HttpPost]
-        public async Task<ActionResult<EmployeeDocument>> AddNewEmployee(EmployeeDocument employeeDocument)
+        [HttpPost("addemployee")]
+        public async Task<ActionResult<EmployeeDocument>> AddNewEmployee([FromBody]EmployeeDocument employeeDocument)
         {
-            employeeDocument.EmployeeId = Guid.NewGuid().ToString();
-            var createEmployee = await _employeeRepository.CreateEmployeeAsync(employeeDocument);
-
+            EmployeeDocument createEmployee = null;
+            try
+            {
+                 createEmployee = await _employeeRepository.CreateEmployeeAsync(employeeDocument);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             return createEmployee != null ? Ok(createEmployee) : BadRequest("Cannot create a new employee");
         }
-        [HttpPut("{employeeId}")]
+        [HttpPut("updateemployee/{employeeId}")]
         public async Task<ActionResult<EmployeeDocument>> UpdateEmployee(string employeeId, EmployeeDocument employeeDocument)
         {
             var existingEmployee = await _employeeRepository.GetByEmployeeId(employeeId);
@@ -70,20 +76,22 @@ namespace EmployeeService.Controllers
             var updateEmployee = await _employeeRepository.updateEmployee(employeeId,employeeDocument);
             return Ok(updateEmployee);
         }
-        [HttpDelete("{employeeId}")]
+        [HttpDelete("deleteemployee/{employeeId}")]
         public async Task<ActionResult> Delete(string employeeId)
         {
-            try
+            var existingEmployee = await _employeeRepository.GetByEmployeeId(employeeId);
+            if (existingEmployee == null)
             {
-                await _employeeRepository.deleteEmployee(employeeId);
+                return BadRequest("Employee not found");
             }
-            catch (Exception ex)
+            if (await _employeeRepository.deleteEmployee(employeeId))
+            {
+                return Ok("Employee deleted sucessfully");
+            }
+            else
             {
                 return BadRequest($"Could not delete an employee");
             }
-
-            return Ok("Employee deleted sucessfully");
-
         }
         [HttpGet("test/{randomstring}")]
         public async Task<ActionResult<string>> GetTest(string randomstring    )

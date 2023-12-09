@@ -18,7 +18,7 @@ namespace EmployeeService.Data
         public EmployeeRepository(CosmosClient cosmosClnt,IConfiguration config) {
         this.cosmosClient = cosmosClnt;
             this.configuration = config;
-            var databaseName = configuration["CosmosDbSettings:DatabaseName"];
+            var databaseName =cosmosClient.ClientOptions.ApplicationName;
             var employeeContainerName = "Employees";
             _employeeContainer = cosmosClient.GetContainer(databaseName, employeeContainerName);
 
@@ -58,12 +58,12 @@ namespace EmployeeService.Data
        public async Task<List<EmployeeDocument>> GetByDepartment(string department)
         {
             var query = _employeeContainer.GetItemLinqQueryable<EmployeeDocument>()
-                .Where(e => e.Department == department).Take(1).ToFeedIterator();
+                .Where(e => e.Department == department).ToFeedIterator();
             List<EmployeeDocument> employeeDocuments = new List<EmployeeDocument>();
             while (query.HasMoreResults)
             {
                 FeedResponse<EmployeeDocument> response = await query.ReadNextAsync();
-                employeeDocuments.Add(response.FirstOrDefault());
+                employeeDocuments.AddRange(response);
             }
             return employeeDocuments;
         }
@@ -89,7 +89,7 @@ namespace EmployeeService.Data
        public async Task<List<EmployeeDocument>> GetByEmployeeDesignation(string designation)
         {
             var query = _employeeContainer.GetItemLinqQueryable<EmployeeDocument>()
-                .Where(e => e.Designation == designation).Take(1).ToFeedIterator();
+                .Where(e => e.Designation == designation).ToFeedIterator();
            var employeeDocuments = new List<EmployeeDocument>();
             while (query.HasMoreResults)
             {
@@ -119,18 +119,37 @@ namespace EmployeeService.Data
 
         public async Task<EmployeeDocument> CreateEmployeeAsync(EmployeeDocument employeeDocument)
         {
-            var existingEmployee = _employeeContainer.GetItemLinqQueryable<EmployeeDocument>()
-                              .Where(e => e.Email == employeeDocument.Email)
-                              .AsEnumerable()
-                              .FirstOrDefault();
+            
+            
+            var query = _employeeContainer.GetItemLinqQueryable<EmployeeDocument>()
+                              .Where(e => e.Email == employeeDocument.Email||e.PhoneNumber==employeeDocument.PhoneNumber).ToFeedIterator();
 
-            if (existingEmployee != null)
+            var result = await query.ReadNextAsync();
+
+            var existingEmployee=result.FirstOrDefault();
+
+            if (existingEmployee !=null)
             {
-                // Handle the situation where an employee with the same ID already exists
+                // Handle the situation where an employee with the same Eamil ID already exists
                 // You might want to throw an exception or return null
-                throw new InvalidOperationException($"An employee with same email already exists.");
+                throw new InvalidOperationException($"An employee with same email or phone number already exists.");
             }
 
+            string uniqueemployeeId;
+            do
+            {
+                var guid = Guid.NewGuid();
+                int hash = Math.Abs(guid.GetHashCode());
+                uniqueemployeeId = (hash % 100000000).ToString();
+                query = _employeeContainer.GetItemLinqQueryable<EmployeeDocument>()
+                              .Where(e => e.EmployeeId == uniqueemployeeId).ToFeedIterator();
+                result = await query.ReadNextAsync();
+                existingEmployee = result.FirstOrDefault();
+
+            } while (string.IsNullOrEmpty(uniqueemployeeId) || uniqueemployeeId.Length > 1023 || (existingEmployee!=null));
+
+            employeeDocument.EmployeeId = uniqueemployeeId;
+            employeeDocument.Id = uniqueemployeeId;
             // Add the new employee to the container
             var response = await _employeeContainer.CreateItemAsync(employeeDocument, new PartitionKey(employeeDocument.EmployeeId));
 
@@ -157,7 +176,7 @@ namespace EmployeeService.Data
                     return true;
                 }
             }
-            throw new Exception("Couldn't find the employee");
+            return false;
         }
 
         public async Task<EmployeeDocument> updateEmployee(string id, EmployeeDocument employeeDocument)

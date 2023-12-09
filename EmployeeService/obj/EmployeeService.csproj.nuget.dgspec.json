@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Sohith Raja\\source\\repos\\EmployeeService\\EmployeeService\\EmployeeService.csproj": {}
+    "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Sohith Raja\\source\\repos\\EmployeeService\\EmployeeService\\EmployeeService.csproj": {
+    "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Sohith Raja\\source\\repos\\EmployeeService\\EmployeeService\\EmployeeService.csproj",
+        "projectUniqueName": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj",
         "projectName": "EmployeeService",
-        "projectPath": "C:\\Users\\Sohith Raja\\source\\repos\\EmployeeService\\EmployeeService\\EmployeeService.csproj",
-        "packagesPath": "C:\\Users\\Sohith Raja\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Sohith Raja\\source\\repos\\EmployeeService\\EmployeeService\\obj\\",
+        "projectPath": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\EmployeeService.csproj",
+        "packagesPath": "C:\\Users\\sohit\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\sohit\\OneDrive\\Desktop\\temp\\New folder\\Employee\\EmployeeService\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Sohith Raja\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\sohit\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -40,6 +40,10 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AspNetCoreRateLimit": {
+              "target": "Package",
+              "version": "[5.0.0, )"
+            },
             "Microsoft.Azure.Cosmos": {
               "target": "Package",
               "version": "[3.37.0, )"
@@ -47,10 +51,6 @@
             "Newtonsoft.Json": {
               "target": "Package",
               "version": "[13.0.3, )"
-            },
-            "Swashbuckle": {
-              "target": "Package",
-              "version": "[5.6.0, )"
             }
           },
           "imports": [
