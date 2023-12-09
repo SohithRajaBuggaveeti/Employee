@@ -1,0 +1,189 @@
+{
+	"info": {
+		"_postman_id": "fa0862e3-f796-4aaf-9667-3e3ad627d6fe",
+		"name": "EmployeeService",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "31692796"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5184/employee/deleteemployee/7917317",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/deleteemployee/7917317",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"deleteemployee",
+						"7917317"
+					]
+				},
+				"description": "Deleting an employee with the employeeId :7917317"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5184/employee/addemployee",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"id\": \"\",\r\n    \"employeeId\": \"\",\r\n    \"employeeName\": \"Jane\",\r\n    \"email\": \"jane@infoec.com\",\r\n    \"designation\": \"Software Engineer\",\r\n    \"department\": \"Engineering\",\r\n    \"managerId\": 4,\r\n    \"address\": {\r\n        \"street\": \"3972 SW 34th street\",\r\n        \"city\": \"Weston\",\r\n        \"state\": \"Florida\",\r\n        \"postalCode\": \"35676\",\r\n        \"country\": \"USA\"\r\n    },\r\n    \"phoneNumber\": \"2345654322\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5184/employee/addemployee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"addemployee"
+					]
+				},
+				"description": "Adding a new employee. employeeId and id will be generated in backend"
+			},
+			"response": []
+		},
+		{
+			"name": "Get by employeeId",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/employeeId/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"employeeId",
+						"1"
+					]
+				},
+				"description": "Get the employee by employeeId"
+			},
+			"response": []
+		},
+		{
+			"name": "GetbyDesignation",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/Designation/Software Engineer",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"Designation",
+						"Software Engineer"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByEmployeeName",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/employeeName/Jane",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"employeeName",
+						"Jane"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByEmail",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/email/jane@infotec.com",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"email",
+						"jane@infotec.com"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetByDepartment",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/department/Engineering",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"department",
+						"Engineering"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "GetbyPhoneNumber",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5184/employee/phonenumber/2345654322",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5184",
+					"path": [
+						"employee",
+						"phonenumber",
+						"2345654322"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
